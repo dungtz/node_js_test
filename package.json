@@ -1,5 +1,17 @@
 {
+  "scripts": {
+    "start": "node server.js",
+    "migrate": "knex migrate:latest",
+    "migrate:rollback": "knex migrate:rollback",
+    "migrate:make": "knex migrate:make",
+    "seed": "knex seed:run",
+    "seed:make": "knex seed:make"
+  },
   "dependencies": {
-    "express": "^5.2.1"
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "knex": "^3.2.10",
+    "mysql2": "^3.22.3"
   }
 }
