@@ -1,6 +1,5 @@
 {
   "scripts": {
-    "prestart": "knex migrate:latest",
     "start": "node server.js",
     "migrate": "knex migrate:latest",
     "migrate:rollback": "knex migrate:rollback",

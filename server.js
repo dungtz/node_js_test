@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ quiet: true });
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const db = require('./db');
@@ -48,6 +48,23 @@ app.post('/login', async (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`Server đang chạy tại: http://localhost:${PORT}`);
-});
+async function start() {
+    try {
+        console.log('[boot] Running migrations...');
+        const [batchNo, log] = await db.migrate.latest();
+        if (log.length === 0) {
+            console.log('[boot] Already up to date');
+        } else {
+            console.log(`[boot] Batch ${batchNo} ran ${log.length} migrations:`, log);
+        }
+    } catch (err) {
+        console.error('[boot] Migration failed:', err);
+        process.exit(1);
+    }
+
+    app.listen(PORT, () => {
+        console.log(`Server đang chạy tại: http://localhost:${PORT}`);
+    });
+}
+
+start();
